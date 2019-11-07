@@ -18,6 +18,7 @@ When connected with `Authorization : token` in the headers
 -   GET `/getUser` => {}
 
 -   GET `/getUniverses` => []{}
+-   GET `/getUniverse/:id`=> {}
 
 When connected as **admin** with `Authorization : token` in the headers
 

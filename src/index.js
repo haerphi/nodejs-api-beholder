@@ -4,7 +4,7 @@ const cors = require("cors");
 
 import {register, login, isLogin, isAdmin} from "./middleware/auth";
 import {getUser} from "./middleware/user";
-import {newUniverse, getUniverses} from "./middleware/universe";
+import {newUniverse, getUniverses, getUniverse} from "./middleware/universe";
 import {newGame} from "./middleware/game";
 
 //port for the app
@@ -28,6 +28,7 @@ app.use(isLogin);
 app.get("/getUser", getUser);
 
 app.get("/getUniverses", getUniverses);
+app.get("/getUniverse/:id", getUniverse);
 app.post("/newGame", newGame);
 
 app.use(isAdmin);

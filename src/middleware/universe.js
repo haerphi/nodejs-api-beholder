@@ -22,3 +22,8 @@ export const getUniverses = async (req, res) => {
     const rep = await bd.from("universe");
     res.send(rep);
 };
+
+export const getUniverse = async (req, res) => {
+    const rep = await bd.from("universe").where("id", req.params.id);
+    res.send(rep[0]);
+};
