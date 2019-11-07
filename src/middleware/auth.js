@@ -12,7 +12,6 @@ export const login = async (req, res) => {
             //verify if email and password matche
             const rep = await bd.from("user").where("email", email);
             if (rep.length > 0) {
-                console.log(rep);
                 if (bcrypt.compareSync(password, rep[0].password)) {
                     //if it matches
                     const token = jwt.sign({id: rep[0].id}, secret_key, {
@@ -109,4 +108,8 @@ export const isLogin = async (req, res, next) => {
     } else {
         res.send("You need login to go this way.");
     }
+};
+
+export const isAdmin = (req, res, next) => {
+    next();
 };
