@@ -13,6 +13,10 @@
 -   POST `/register` : !email, !password, !nickname, firstname, lastname => {sucess, token||error}
 -   POST `/login`: !email, !password => {sucess, token||error}
 
+When connected with `Authorization : token` in the headers
+
+-   GET `/getUser` => {}
+
 ## TODO
 
 -   creation de la table user + column

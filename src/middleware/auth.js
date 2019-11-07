@@ -96,8 +96,7 @@ export const isLogin = async (req, res, next) => {
                 const user = await bd.from("user").where("id", decoded.id);
                 //- leny told its ok.
                 // eslint-disable-next-line require-atomic-updates
-                req.user = user;
-                console.log(user);
+                req.user = user[0];
                 next();
             } else {
                 res.send({
