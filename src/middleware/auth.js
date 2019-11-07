@@ -1,5 +1,6 @@
 import bd from "../bd/bd";
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const secret_key = process.env.SECRET_KEY;
 
@@ -9,21 +10,28 @@ export const login = async (req, res) => {
         const {email, password} = req.body;
         if (email && password) {
             //verify if email and password matche
-            const rep = await bd
-                .from("user")
-                .where("email", email)
-                .where("password", password);
+            const rep = await bd.from("user").where("email", email);
             if (rep.length > 0) {
-                //if it matches
-                const token = jwt.sign({id: rep[0].id}, secret_key, {
-                    expiresIn: "24h",
-                });
-                const userInfo = {sucess: true, token};
-                if (rep[0].role === "admin") {
-                    userInfo.admin = true;
+                console.log(rep);
+                if (bcrypt.compareSync(password, rep[0].password)) {
+                    //if it matches
+                    const token = jwt.sign({id: rep[0].id}, secret_key, {
+                        expiresIn: "24h",
+                    });
+                    const userInfo = {sucess: true, token};
+                    if (rep[0].role === "admin") {
+                        userInfo.admin = true;
+                    }
+                    res.send(userInfo);
+                } else {
+                    //password doesn't match
+                    res.send({
+                        sucess: false,
+                        error: "Email and password doesn't match",
+                    });
                 }
-                res.send(userInfo);
             } else {
+                //email doesn't match
                 res.send({
                     sucess: false,
                     error: "Email and password doesn't match",
@@ -53,7 +61,7 @@ export const register = async (req, res) => {
             if (rep.length < 1 && rep2.length < 1) {
                 const obj = {
                     email,
-                    password,
+                    password: bcrypt.hashSync(password, 10),
                     nickname,
                 };
                 if (firstname) {
@@ -89,6 +97,7 @@ export const isLogin = async (req, res, next) => {
                 //- leny told its ok.
                 // eslint-disable-next-line require-atomic-updates
                 req.user = user;
+                console.log(user);
                 next();
             } else {
                 res.send({
