@@ -2,7 +2,7 @@ import express from "express";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-import {register, authentification} from "./middleware/auth";
+import {register, login, isLogin} from "./middleware/auth";
 
 //port for the app
 const {APP_PORT, PORT} = process.env;
@@ -14,7 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/register", register);
-app.post("/login", authentification);
+app.post("/login", login);
+
+app.use(isLogin);
 
 app.get("/", (req, res) => {
     res.send("the app is coming soon");
