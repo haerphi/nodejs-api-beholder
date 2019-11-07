@@ -19,4 +19,9 @@ When connected with `Authorization : token` in the headers
 
 ## TODO
 
--   creation de la table user + column
+-   install:
+    -   creation de la table user + column
+-   auth:
+    -   middleware admin
+-   user:
+    -   edit user
