@@ -2,8 +2,10 @@ import express from "express";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-import {register, login, isLogin} from "./middleware/auth";
+import {register, login, isLogin, isAdmin} from "./middleware/auth";
 import {getUser} from "./middleware/user";
+import {newUniverse, getUniverses} from "./middleware/universe";
+import {newGame} from "./middleware/game";
 
 //port for the app
 const {APP_PORT, PORT} = process.env;
@@ -23,7 +25,14 @@ app.post("/login", login);
 
 app.use(isLogin);
 
-app.get("/getUser", getUser); // infos
+app.get("/getUser", getUser);
+
+app.get("/getUniverses", getUniverses);
+app.post("/newGame", newGame);
+
+app.use(isAdmin);
+
+app.post("/newUniverse", newUniverse);
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`🚀🚀🚀 Listening on port: ${port}!`));
