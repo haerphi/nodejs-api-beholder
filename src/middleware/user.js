@@ -3,7 +3,8 @@ import bd from "../bd/bd";
 const getTabContact = async id => {
     const rep = await bd("user_x_user")
         .where("idUser1", id)
-        .orWhere("idUser2", id);
+        .orWhere("idUser2", id)
+        .where("accepted", true);
 
     const tabPromises = [];
     for (const element of rep) {
