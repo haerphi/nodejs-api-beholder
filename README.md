@@ -23,7 +23,8 @@ When connected with `Authorization : token` in the headers
 -   POST `/newGame`: !name:string, !idUniverse:int => {sucess, idGame||error}
 -   GET `/getGame/:id` => {} || {sucess, error}
 -   GET `/getGames`=> []{}
-    When connected as **admin** with `Authorization : token` in the headers
+
+When connected as **admin** with `Authorization : token` in the headers
 
 -   POST `/newUniverse`: !name:string, style:string
 
