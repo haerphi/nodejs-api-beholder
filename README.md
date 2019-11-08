@@ -21,8 +21,9 @@ When connected with `Authorization : token` in the headers
 -   GET `/getUniverse/:id`=> {}
 
 -   POST `/newGame`: !name:string, !idUniverse:int => {sucess, idGame||error}
--   GET `/getGame/:id` => {} || {sucess, error}
 -   GET `/getGames`=> []{}
+-   GET `/getGame/:id` => {} || {sucess, error}
+-   POST `/game/newCharacter`: !idGame:int, !property:object, !status:string => {sucess, message||error}
 
 When connected as **admin** with `Authorization : token` in the headers
 

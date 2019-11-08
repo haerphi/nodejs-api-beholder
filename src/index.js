@@ -10,7 +10,7 @@ import {
     getUniverse,
     newCharacterSheet,
 } from "./middleware/universe";
-import {newGame, getGames, getGame} from "./middleware/game";
+import {newGame, getGames, getGame, gameNewCharacter} from "./middleware/game";
 
 //port for the app
 const {APP_PORT, PORT} = process.env;
@@ -38,6 +38,7 @@ app.get("/getUniverse/:id", getUniverse);
 app.post("/newGame", newGame);
 app.get("/getGames", getGames);
 app.get("/getGame/:id", getGame);
+app.post("/game/newCharacter", gameNewCharacter);
 
 app.use(isAdmin);
 

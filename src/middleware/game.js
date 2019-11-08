@@ -38,11 +38,12 @@ export const getGame = async (req, res) => {
         .where("idUser", req.user.id)
         .where("id", req.params.id);
     if (rep.length > 0) {
-        rep[0].character = [
-            {id: 0, property: {name: "patate", puissance: 999}, status: "pc"},
-            {id: 1, property: {name: "lapin", puissance: -1}, status: "pc"},
-        ];
-        rep[0].characterSheet = {id: 0, property: {name: "", puissance: 0}};
+        rep[0].character = await bd
+            .from("character")
+            .where("idGame", req.params.id);
+        rep[0].characterSheet = (await bd
+            .from("character_sheet")
+            .where("idUniverse", rep[0].idUniverse))[0];
         rep[0].adventures = [
             {id: 1, name: "adventure1"},
             {id: 2, name: "adventure2"},
@@ -60,4 +61,41 @@ export const getGame = async (req, res) => {
 export const getGames = async (req, res) => {
     const rep = await bd.from("game").where("idUser", req.user.id);
     res.send(rep);
+};
+
+export const gameNewCharacter = async (req, res) => {
+    if (req.body) {
+        const {idGame, property, status} = req.body;
+        if (idGame && property && status) {
+            //vérif qu'il possède la game
+            const repown = await bd
+                .from("game")
+                .where("idUser", req.user.id)
+                .where("id", idGame);
+            if (repown.length > 0) {
+                const obj = {idGame, property, status};
+                const rep = await bd("character").insert(obj);
+                if (rep.rowCount > 0) {
+                    res.send({
+                        sucess: true,
+                        message: "Nouveau personnage ajouter !",
+                    });
+                } else {
+                    res.send({sucess: false, error: "insert error"});
+                }
+            } else {
+                res.send({
+                    sucess: false,
+                    error: "You don't have a game with this id",
+                });
+            }
+        } else {
+            res.send({
+                sucess: false,
+                error: "idGame or property or status missing",
+            });
+        }
+    } else {
+        res.send({sucess: false, error: "Body missing"});
+    }
 };
