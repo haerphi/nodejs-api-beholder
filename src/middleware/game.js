@@ -10,7 +10,7 @@ export const newGame = async (req, res) => {
                 .from("game")
                 .where("idUser", req.user.id)
                 .where("name", name);
-            if (verif.length < 0) {
+            if (verif.length <= 0) {
                 const rpe = await bd("game").insert(obj);
                 if (rpe.rowCount > 0) {
                     const rep = await bd
