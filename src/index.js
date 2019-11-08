@@ -4,7 +4,12 @@ const cors = require("cors");
 
 import {register, login, isLogin, isAdmin} from "./middleware/auth";
 import {getUser} from "./middleware/user";
-import {newUniverse, getUniverses, getUniverse} from "./middleware/universe";
+import {
+    newUniverse,
+    getUniverses,
+    getUniverse,
+    newCharacterSheet,
+} from "./middleware/universe";
 import {newGame, getGames, getGame} from "./middleware/game";
 
 //port for the app
@@ -37,6 +42,7 @@ app.get("/getGame/:id", getGame);
 app.use(isAdmin);
 
 app.post("/newUniverse", newUniverse);
+app.post("/newCharacterSheet", newCharacterSheet);
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`🚀🚀🚀 Listening on port: ${port}!`));

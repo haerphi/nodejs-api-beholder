@@ -27,6 +27,7 @@ When connected with `Authorization : token` in the headers
 When connected as **admin** with `Authorization : token` in the headers
 
 -   POST `/newUniverse`: !name:string, style:string
+-   POST `/newCharacterSheet`: !idUniverse:int, !property:object => {sucess, error||message}
 
 ## TODO
 
