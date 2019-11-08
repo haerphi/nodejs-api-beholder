@@ -4,9 +4,24 @@
 -- https://tableplus.com/
 --
 -- Database: beholder
--- Generation Time: 2019-11-08 13:55:11.0770
+-- Generation Time: 2019-11-08 16:14:40.0640
 -- -------------------------------------------------------------
 
+
+DROP TABLE IF EXISTS "public"."character";
+-- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
+
+-- Sequence and defined type
+CREATE SEQUENCE IF NOT EXISTS character_id_seq;
+
+-- Table Definition
+CREATE TABLE "public"."character" (
+    "id" int4 NOT NULL DEFAULT nextval('character_id_seq'::regclass),
+    "property" json,
+    "status" varchar,
+    "idGame" int4,
+    PRIMARY KEY ("id")
+);
 
 DROP TABLE IF EXISTS "public"."character_sheet";
 -- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
@@ -77,6 +92,12 @@ CREATE TABLE "public"."user_x_user" (
     "idUser2" int4 NOT NULL,
     "accepted" bool DEFAULT false
 );
+
+INSERT INTO "public"."character" ("id", "property", "status", "idGame") VALUES ('1', '{"name":"potato","feculent":100,"glucide":10,"puissance":9999}', 'pc', '5'),
+('2', '{"name":"truc","feculent":0,"glucide":1,"puissance":-1}', 'npc', '5'),
+('3', '{"name":"machin","feculent":0,"glucide":1,"puissance":-1}', 'pc', '5');
+
+INSERT INTO "public"."character_sheet" ("id", "property", "idUniverse") VALUES ('1', '{"feculent":0,"glucide":0,"puissance":0}', '1');
 
 INSERT INTO "public"."game" ("id", "idUser", "name", "idUniverse") VALUES ('1', '2', 'Potato''s game', '1'),
 ('5', '3', 'plow''s game', '1');
