@@ -38,8 +38,26 @@ export const getGame = async (req, res) => {
         .where("idUser", req.user.id)
         .where("id", req.params.id);
     if (rep.length > 0) {
+        rep[0].character = [
+            {id: 0, property: {name: "patate", puissance: 999}, status: "pc"},
+            {id: 1, property: {name: "lapin", puissance: -1}, status: "pc"},
+        ];
+        rep[0].characterSheet = {id: 0, property: {name: "", puissance: 0}};
+        rep[0].adventures = [
+            {id: 1, name: "adventure1"},
+            {id: 2, name: "adventure2"},
+        ];
+        rep[0].campagnes = [
+            {name: "Campagne1", adventures: [3, 4]},
+            {name: "Campagne2", adventures: [5, 6]},
+        ];
         res.send(rep[0]);
     } else {
         res.send({sucess: false, error: "You don't own game with this id"});
     }
+};
+
+export const getGames = async (req, res) => {
+    const rep = await bd.from("game").where("idUser", req.user.id);
+    res.send(rep);
 };

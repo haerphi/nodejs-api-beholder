@@ -4,20 +4,35 @@
 -- https://tableplus.com/
 --
 -- Database: beholder
--- Generation Time: 2019-11-07 15:54:53.8460
+-- Generation Time: 2019-11-08 13:55:11.0770
 -- -------------------------------------------------------------
 
 
-DROP TABLE IF EXISTS "public"."caracter_sheet";
+DROP TABLE IF EXISTS "public"."character_sheet";
 -- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
 
 -- Sequence and defined type
-CREATE SEQUENCE IF NOT EXISTS caracter_sheet_id_seq;
+CREATE SEQUENCE IF NOT EXISTS character_sheet_id_seq;
 
 -- Table Definition
-CREATE TABLE "public"."caracter_sheet" (
-    "id" int4 NOT NULL DEFAULT nextval('caracter_sheet_id_seq'::regclass),
+CREATE TABLE "public"."character_sheet" (
+    "id" int4 NOT NULL DEFAULT nextval('character_sheet_id_seq'::regclass),
     "property" json,
+    "idUniverse" int4,
+    PRIMARY KEY ("id")
+);
+
+DROP TABLE IF EXISTS "public"."game";
+-- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
+
+-- Sequence and defined type
+CREATE SEQUENCE IF NOT EXISTS game_id_seq;
+
+-- Table Definition
+CREATE TABLE "public"."game" (
+    "id" int4 NOT NULL DEFAULT nextval('game_id_seq'::regclass),
+    "idUser" int4,
+    "name" varchar,
     "idUniverse" int4,
     PRIMARY KEY ("id")
 );
@@ -62,6 +77,9 @@ CREATE TABLE "public"."user_x_user" (
     "idUser2" int4 NOT NULL,
     "accepted" bool DEFAULT false
 );
+
+INSERT INTO "public"."game" ("id", "idUser", "name", "idUniverse") VALUES ('1', '2', 'Potato''s game', '1'),
+('5', '3', 'plow''s game', '1');
 
 INSERT INTO "public"."universe" ("id", "name", "theme") VALUES ('1', 'Potatoes world', 'classic');
 
