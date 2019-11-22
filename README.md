@@ -22,7 +22,7 @@ When connected with `Authorization : token` in the headers
 
 -   POST `/newGame`: !name:string, !idUniverse:int => {sucess, idGame||error}
 -   GET `/getGames`=> []{}
--   GET `/getGame/:id` => {} || {sucess, error}
+-   GET `/getGame/:id` => {} || {sucess, error} (actually: adventures and campagnes are juste fakes datas)
 -   POST `/game/newCharacter`: !idGame:int, !property:object, !status:string => {sucess, message||error}
 
 When connected as **admin** with `Authorization : token` in the headers

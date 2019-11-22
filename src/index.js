@@ -11,6 +11,7 @@ import {
     newCharacterSheet,
 } from "./middleware/universe";
 import {newGame, getGames, getGame, gameNewCharacter} from "./middleware/game";
+import {newAdventure} from "./middleware/adventure";
 
 //port for the app
 const {APP_PORT, PORT} = process.env;
@@ -31,6 +32,10 @@ app.post("/login", login);
 app.use(isLogin);
 
 app.get("/getUser", getUser);
+//update user
+//delete user
+//friend request
+//friend delete
 
 app.get("/getUniverses", getUniverses);
 app.get("/getUniverse/:id", getUniverse);
@@ -38,11 +43,23 @@ app.get("/getUniverse/:id", getUniverse);
 app.post("/newGame", newGame);
 app.get("/getGames", getGames);
 app.get("/getGame/:id", getGame);
+//delete Game
+
+app.post("/game/newAdventure", newAdventure);
+//get adventure => return tout les actes avec les chapitres et scenes
+//delete adventure
+
+//new campagne
+//delete campagne
+
 app.post("/game/newCharacter", gameNewCharacter);
+//delete character
 
 app.use(isAdmin);
 
 app.post("/newUniverse", newUniverse);
+//delete universe
+//update universe
 app.post("/newCharacterSheet", newCharacterSheet);
 
 // eslint-disable-next-line no-console

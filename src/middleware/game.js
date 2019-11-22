@@ -17,7 +17,7 @@ export const newGame = async (req, res) => {
                         .from("game")
                         .where("idUser", req.user.id)
                         .where("name", name);
-                    res.send({sucess: true, gameId: rep[0].id});
+                    res.send({sucess: true, adventureId: rep[0].id});
                 } else {
                     res.send({sucess: false, error: "rien n'a été ajouter"});
                 }
