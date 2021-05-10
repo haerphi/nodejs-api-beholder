@@ -24,7 +24,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-unicorn": "^16.0.0",
     "husky": "^4.2.1",
-    "lint-staged": "^10.0.2",
+    "lint-staged": "^11.0.0",
     "prettier": "^1.18.2"
   },
   "lint-staged": {
